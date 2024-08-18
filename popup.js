@@ -11,6 +11,7 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
 
     const testEmailAddress = document.getElementById('testEmailAddress').value;
     const from = document.getElementById('from').value;
+    const emailHeaders = document.getElementById('emailHeaders').emailHeaders;
 
     const mailer = document.getElementById('mailer').value;
     const mailerApiKey = document.getElementById('mailerApiKey').value;
@@ -37,7 +38,8 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
         mailerApiKey,
         excluded,
         testEmailAddress,
-        from
+        from,
+        emailHeaders
     });
 
     chrome.runtime.sendMessage({
@@ -52,7 +54,8 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
       mailerApiKey: mailerApiKey,
       excluded: excluded,
       testEmailAddress: testEmailAddress,
-      from: from
+      from: from,
+      emailHeaders: emailHeaders
     }, function(response) {
       document.getElementById('status').innerText = response.status;
     });
@@ -87,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (result.excluded) document.getElementById('excluded').value = result.excluded;
         if (result.testEmailAddress) document.getElementById('testEmailAddress').value = result.testEmailAddress;
         if (result.from) document.getElementById('from').value = result.from;
+        if (result.emailHeaders) document.getElementById('emailHeaders').value = result.emailHeaders;
         if (result.smtpConfigs) {
             result.smtpConfigs.forEach(addSmtpConfig);
         }

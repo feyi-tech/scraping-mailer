@@ -20,13 +20,13 @@
     <label for="selector">TO Selector*:</label>
     <input type="text" id="selector" placeholder="CSS selector for username" required>
 
-    <label for="selector">TO Excluded:</label>
+    <label for="selector">TO Excluded(optional):</label>
     <textarea id="excluded" rows="3" placeholder="Separate usernames to exclude with commas"></textarea>
 
-    <label for="selector">TO Suffix Domain:</label>
+    <label for="selector">TO Suffix Domain(optional):</label>
     <input type="text" id="domain" placeholder="gmail.com">
 
-    <label for="selector">TO For Testing:</label>
+    <label for="selector">TO For Testing(optional):</label>
     <textarea id="testEmailAddress" rows="3" placeholder="Separate email addresses to use for testing with commas"></textarea>
     
     <label for="emailTitle">From*:</label>
@@ -37,15 +37,20 @@
     
     <label for="emailBody">Email Body(plain or html)*:</label>
     <textarea id="emailBody" rows="4" placeholder="HTML content of the email" required></textarea>
+
+    <label for="emailHeaders">Email Headers(optional):</label>
+    <textarea id="emailHeaders" rows="4" placeholder="Email headers as JSON. E.g {
+      'List-Unsubscribe': '&lt;mailto:unsubscribe@example.com?subject=unsubscribe&gt;, &lt;https://example.com/unsubscribe&gt;'
+  }"></textarea>
     
-    <label for="maxResend">Max Resend Times:</label>
+    <label for="maxResend">Max Resend Times*:</label>
     <input type="number" id="maxResend" placeholder="e.g., 3" required>
     
     <h4 style="margin-top: 1.2rem;">--SMTP Mailer Configuration</h4>
-    <label for="selector">Smtp Mailer Endpoint:</label>
+    <label for="selector">Smtp Mailer Endpoint*:</label>
     <input type="text" id="mailer" placeholder="https://example.com/mailer" required>
 
-    <label for="selector">Smtp Mailer Endpoint API KEY:</label>
+    <label for="selector">Smtp Mailer Endpoint API KEY*:</label>
     <input type="text" id="mailerApiKey" placeholder="Enter the apikey for the endpoint" required>
 
     <h4 style="margin-top: 1.2rem;">--SMTPs Configurations</h4>
