@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scraping Mailer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 10px; width: 350px; }
+    label { display: block; margin-top: 10px; }
+    input, textarea { width: 100%; }
+    button { margin-top: 10px; }
+    table { width: 100%; margin-top: 10px; }
+    th, td { padding: 5px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .smtp-entry { margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <h3>Scraping Mailer</h3>
+  <form id="emailForm">
+    <label for="selector">TO Selector*:</label>
+    <input type="text" id="selector" placeholder="CSS selector for username" required>
+
+    <label for="selector">TO Excluded:</label>
+    <textarea id="excluded" rows="3" placeholder="Separate usernames to exclude with commas"></textarea>
+
+    <label for="selector">TO Suffix Domain:</label>
+    <input type="text" id="domain" placeholder="gmail.com">
+
+    <label for="selector">TO For Testing:</label>
+    <textarea id="testEmailAddress" rows="3" placeholder="Separate email addresses to use for testing with commas"></textarea>
+    
+    <label for="emailTitle">From*:</label>
+    <input type="text" id="from" placeholder="pr@example.com" required>
+    
+    <label for="emailTitle">Email Title*:</label>
+    <input type="text" id="emailTitle" placeholder="Subject of the email" required>
+    
+    <label for="emailBody">Email Body(plain or html)*:</label>
+    <textarea id="emailBody" rows="4" placeholder="HTML content of the email" required></textarea>
+    
+    <label for="maxResend">Max Resend Times:</label>
+    <input type="number" id="maxResend" placeholder="e.g., 3" required>
+    
+    <h4 style="margin-top: 1.2rem;">--SMTP Mailer Configuration</h4>
+    <label for="selector">Smtp Mailer Endpoint:</label>
+    <input type="text" id="mailer" placeholder="https://example.com/mailer" required>
+
+    <label for="selector">Smtp Mailer Endpoint API KEY:</label>
+    <input type="text" id="mailerApiKey" placeholder="Enter the apikey for the endpoint" required>
+
+    <h4 style="margin-top: 1.2rem;">--SMTPs Configurations</h4>
+    <div id="smtpList"></div>
+    <button id="addSmtpBtn" type="button">Add SMTP Config</button>
+    
+    <button type="submit">Send Message</button>
+  </form>
+  <div id="status"></div>
+  
+  <template id="smtpTemplate">
+    <div class="smtp-entry">
+      <label for="smtpServer">SMTP Server:</label>
+      <input type="text" class="smtpServer" placeholder="e.g., smtp.example.com" required>
+      <label for="smtpPort">SMTP Port:</label>
+      <input type="number" class="smtpPort" placeholder="e.g., 587" required>
+      <label for="smtpUser">SMTP User:</label>
+      <input type="text" class="smtpUser" placeholder="Your SMTP username" required>
+      <label for="smtpPass">SMTP Password:</label>
+      <input type="password" class="smtpPass" placeholder="Your SMTP password" required>
+      <button class="removeSmtpBtn" type="button">Remove</button>
+    </div>
+  </template>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
