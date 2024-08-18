@@ -27,7 +27,7 @@ This Chrome extension allows you to scrape usernames from a webpage, append a sp
 1. **Open the Extension**: Click on the extension icon in the Chrome toolbar.
 
 2. **Configure Settings**:
-    - Domain: Input the domain to append to the scraped usernames (e.g., @example.com).
+    - Domain: Input the domain to append to the scraped usernames (e.g., example.com).
     - SMTP Server Details: Provide your SMTP server information (host, port, username, password).
     - Email Message: Enter the message you want to send.
 
