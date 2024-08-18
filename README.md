@@ -38,6 +38,6 @@ This Chrome extension allows you to scrape usernames from a webpage, append a sp
 
 ## Example Workflow
 
-1. **Launch**: Visit any webpage with usernames or emails you want to target and click click the plugin to open it on the page.
+1. **Launch**: Visit any webpage with usernames or emails you want to target and click the plugin to open it on the page.
 2. **Configure**: Fill in the form on the plugin pop-up.
 3. **Scrape and Mail**: Click "Send Message" to start scrape and form email addresses, then mail the email addresses.
