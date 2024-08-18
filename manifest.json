@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Scraping Mailer",
-    "description": "This plugin allows you to scrape usernames on a webpage and try to append @domain to the back to form and email, then mailthem all with you provided message and smtp server details.",
+    "description": "This plugin allows you to scrape usernames on a webpage and try to append @domain to the back to form and email, then mail them all with you provided message and smtp server details.",
     "version": "1.0",
     "permissions": ["storage", "declarativeContent", "activeTab", "scripting"],
     "action": {
