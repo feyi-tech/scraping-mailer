@@ -33,15 +33,26 @@
     });
   
     function extractUsernames(selector, domain, excluded) {
-        const excludedList = (excluded || "").split(",").map(ex => ex.trim().toLowerCase())
         function cleanUsername(username) {
             if(username.trim().startsWith("@")) username = username.trim().split("@")[1]
-            return `${username.trim()}${username.includes("@") || !domain? "" : `@${domain}`}`.toLowerCase()
+            return username.trim().toLowerCase()
         }
+        const excludedList = (excluded || "").split(",").map(ex => cleanUsername(ex))
         //console.log("extractUsernames: ", excludedList, ...document.querySelectorAll(selector), [...document.querySelectorAll(selector)].filter(username => !excludedList.includes(username.trim().toLowerCase())))
+        
+        const checked = []
         return [...document.querySelectorAll(selector)]
-        .filter(usernameEl => !excludedList.includes(usernameEl.innerText.trim().toLowerCase()))
-        .map(el => cleanUsername(el.innerText));
+        .filter(usernameEl => {
+            const valid = !excludedList.includes(cleanUsername(usernameEl.innerText)) && !checked.includes(cleanUsername(usernameEl.innerText))
+            if(valid) {
+                checked.push(cleanUsername(usernameEl.innerText))
+            }
+            return valid
+        })
+        .map(el => {
+            const cleaned = cleanUsername(el.innerText)
+            return `${cleaned}${cleaned.includes("@") || !domain? "" : `@${domain}`}`
+        });
     }
   
     async function sendEmails(smtpConfigs, from, emails, emailTitle, emailBody, mailer, mailerApiKey, testEmailAddress, emailHeaders) {
@@ -86,7 +97,8 @@
     }
     
     async function sendEmail(smtpConfig, from, to, subject, htmlBody, mailer, mailerApiKey, testEmailAddress, emailHeaders) {
-        //console.log("smtp_config: ", smtpConfig)
+        console.log("sendEmail:testEmailAddress ", testEmailAddress)
+        console.log("sendEmail:to ", to)
         try {
             const body = {
                 from: from,

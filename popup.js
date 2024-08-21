@@ -104,7 +104,7 @@ function addSmtpConfig(smtpConfig = {}) {
 // Load the saved form data
 document.addEventListener('DOMContentLoaded', function() {
     chrome.storage.local.get([
-      'selector', 'domain', 'mailer', 'mailerApiKey', 'emailTitle', 'emailBody', 'smtpConfigs',
+      'selector', 'domain', 'mailer', 'mailerApiKey', 'emailTitle', 'emailBody', 'excluded', 'smtpConfigs',
       'testEmailAddress', 'from','emailHeaders'
     ], function(result) {
         if (result.selector) document.getElementById('selector').value = result.selector;
