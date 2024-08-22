@@ -7,8 +7,9 @@
                         func: extractUsernames,
                         args: [request.selector, request.domain, request.excluded],
                     }, async (results) => {
-                        if (results && results[0] && results[0].result) {
-                            const usernames = results[0].result;
+                        console.log("request.retry: ", request.retry)
+                        if ((results && results[0] && results[0].result) || request.retry) {
+                            const usernames = (results || [{}])[0].result || [];
                             try {
                                 const data = await sendEmails(
                                     request.smtpConfigs, request.from, usernames, 

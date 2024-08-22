@@ -14,7 +14,7 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
 
     const mailer = document.getElementById('mailer').value;
     const mailerApiKey = document.getElementById('mailerApiKey').value;
-    const retry = document.getElementById('retry').value;
+    const retry = document.getElementById('retry').checked;
   
     const smtpConfigs = [];
     document.querySelectorAll('.smtp-entry').forEach(entry => {
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (result.testEmailAddress) document.getElementById('testEmailAddress').value = result.testEmailAddress;
         if (result.from) document.getElementById('from').value = result.from;
         if (result.emailHeaders) document.getElementById('emailHeaders').value = result.emailHeaders;
-        if (result.retry) document.getElementById('retry').value = result.retry;
+        if (result.retry) document.getElementById('retry').checked = result.retry;
         if (result.smtpConfigs) {
             result.smtpConfigs.forEach(addSmtpConfig);
         }
