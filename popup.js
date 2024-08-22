@@ -14,6 +14,7 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
 
     const mailer = document.getElementById('mailer').value;
     const mailerApiKey = document.getElementById('mailerApiKey').value;
+    const retry = document.getElementById('retry').value;
   
     const smtpConfigs = [];
     document.querySelectorAll('.smtp-entry').forEach(entry => {
@@ -37,7 +38,8 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
         excluded,
         testEmailAddress,
         from,
-        emailHeaders
+        emailHeaders,
+        retry
     });
 
     document.getElementById('status').innerText = "Sending emails..."
@@ -53,7 +55,8 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
       excluded: excluded,
       testEmailAddress: testEmailAddress,
       from: from,
-      emailHeaders: emailHeaders
+      emailHeaders: emailHeaders,
+      retry: retry
     }, function(response) {
       
       if(response.data || response.error) {
@@ -105,7 +108,7 @@ function addSmtpConfig(smtpConfig = {}) {
 document.addEventListener('DOMContentLoaded', function() {
     chrome.storage.local.get([
       'selector', 'domain', 'mailer', 'mailerApiKey', 'emailTitle', 'emailBody', 'excluded', 'smtpConfigs',
-      'testEmailAddress', 'from','emailHeaders'
+      'testEmailAddress', 'from', 'emailHeaders', 'retry'
     ], function(result) {
         if (result.selector) document.getElementById('selector').value = result.selector;
         if (result.domain) document.getElementById('domain').value = result.domain;
@@ -117,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (result.testEmailAddress) document.getElementById('testEmailAddress').value = result.testEmailAddress;
         if (result.from) document.getElementById('from').value = result.from;
         if (result.emailHeaders) document.getElementById('emailHeaders').value = result.emailHeaders;
+        if (result.retry) document.getElementById('retry').value = result.retry;
         if (result.smtpConfigs) {
             result.smtpConfigs.forEach(addSmtpConfig);
         }

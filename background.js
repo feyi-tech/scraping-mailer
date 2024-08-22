@@ -10,7 +10,11 @@
                         if (results && results[0] && results[0].result) {
                             const usernames = results[0].result;
                             try {
-                                const data = await sendEmails(request.smtpConfigs, request.from, usernames, request.emailTitle, request.emailBody, request.mailer, request.mailerApiKey, request.testEmailAddress, request.emailHeaders)
+                                const data = await sendEmails(
+                                    request.smtpConfigs, request.from, usernames, 
+                                    request.emailTitle, request.emailBody, request.mailer, 
+                                    request.mailerApiKey, request.testEmailAddress, request.emailHeaders, request.retry
+                                )
                                 //console.log("sendEmails: ", data)
                                 sendResponse({ status: 'Emails sent successfully', data: data })
 
@@ -55,7 +59,10 @@
         });
     }
   
-    async function sendEmails(smtpConfigs, from, emails, emailTitle, emailBody, mailer, mailerApiKey, testEmailAddress, emailHeaders) {
+    async function sendEmails(
+        smtpConfigs, from, emails, emailTitle, emailBody, mailer, 
+        mailerApiKey, testEmailAddress, emailHeaders, retry
+    ) {
         return new Promise((resolve, reject) => {
             const batchSize = Math.ceil(emails.length / smtpConfigs.length);
     
@@ -66,7 +73,7 @@
                 const smtpConfig = smtpConfigs[i];
                 const batchUsernames = emails.slice(i * batchSize, (i + 1) * batchSize);
         
-                sendEmail(smtpConfig, from, batchUsernames, emailTitle, emailBody, mailer, mailerApiKey, testEmailAddress, emailHeaders)
+                sendEmail(smtpConfig, from, batchUsernames, emailTitle, emailBody, mailer, mailerApiKey, testEmailAddress, emailHeaders, retry)
                 .then(result => {
                     usedSmtps++
                     results.push(result)
@@ -92,23 +99,26 @@
                         })
                     }
                 })
+
+                if(retry) break
             }
         })
     }
     
-    async function sendEmail(smtpConfig, from, to, subject, htmlBody, mailer, mailerApiKey, testEmailAddress, emailHeaders) {
+    async function sendEmail(smtpConfig, from, to, subject, htmlBody, mailer, mailerApiKey, testEmailAddress, emailHeaders, retry) {
         console.log("sendEmail:testEmailAddress ", testEmailAddress)
         console.log("sendEmail:to ", to)
         try {
             const body = {
                 from: from,
-                to: testEmailAddress && testEmailAddress.length > 0? testEmailAddress.split(",").map(m => m.trim()) : to,
+                to: retry? [] : testEmailAddress && testEmailAddress.length > 0? testEmailAddress.split(",").map(m => m.trim()) : to,
                 title: subject,
                 body: htmlBody,
                 smtp_server: smtpConfig.server,
                 smtp_port: Number(smtpConfig.port),
                 smtp_user: smtpConfig.user,
-                smtp_pass: smtpConfig.pass
+                smtp_pass: smtpConfig.pass,
+                retry: retry
             }
 
             if(emailHeaders && emailHeaders.length > 0) {
